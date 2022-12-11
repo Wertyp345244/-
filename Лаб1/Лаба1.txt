@@ -1,0 +1,66 @@
+import math
+import matplotlib.pyplot as plt
+import sys
+
+sys.stdout = open("result.txt", "w")
+def setData(fileName, data):
+    file = open(fileName, 'r')
+    for line in file:
+        data.append(int(line.strip()))
+
+data =[]
+setData("input_100.txt",data)
+def TableForTask1(data):
+    print("Xi\t fi\t\t\t Rf\t\t\t\tFi\t")
+    count = 1
+    N = 0
+    for i in data:
+        N += i
+    Cum = 0
+    for i in data:
+        Cum += i
+        print(count, "\t", i, "\t\t\t", round(i/N, 3), "\t\t\t", Cum)
+        count += 1
+    print("Total:", N)
+
+TableForTask1(data)
+
+
+#1
+Most=0
+for i in range(len(data)):
+    if data[i]>Most:
+        Most=data[i]
+
+print('Most views',Most)
+
+#2
+sum = 0
+
+for i in range(len(data)):
+    sum += data[i]
+
+Mediana = sum/len(data)
+
+print("Mediana:", Mediana)
+
+print('Moda-',max(set(data), key=data.count))
+
+#3
+Dis=0
+for i in data:
+    Dis+=math.pow((i-Mediana),2)
+dispers=(Dis/(len(data)-1))
+print('Duspersia',dispers)
+
+SquareDeviation = math.sqrt(dispers)
+print("Mean square:", SquareDeviation)
+
+#4
+plt.bar(range(len(data)), data)
+
+
+plt.xlabel("Film")
+plt.ylabel("«Частота »")
+plt.show()
+sys.stdout.close()
